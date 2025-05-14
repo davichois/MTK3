@@ -3,6 +3,24 @@ import { useEffect, useState } from "react";
 import { socket } from "@/lib/socketClient";
 import type { Corredor } from "@/lib/types";
 import { motion, AnimatePresence } from "framer-motion";
+import { Montserrat, Audiowide } from "next/font/google";
+import localFont from "next/font/local";
+
+const myFont = localFont({
+  src: "../fonts/formula1.otf",
+  weight: "400",
+  style: "normal",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "700", "900"], // Asegúrate de incluir los pesos que usas
+});
+
+const audiowide = Audiowide({
+  subsets: ["latin"],
+  weight: ["400"], // Asegúrate de incluir los pesos que usas
+});
 
 export const runtime = "edge";
 
@@ -34,23 +52,30 @@ export default function TowerPosition() {
             className="flex items-center text-white font-bold bg-black overflow-hidden shadow"
           >
             {/* Caja blanca con número */}
-            <div className="bg-black text-white w-12 h-10 flex items-center justify-center">
-              {item.posicion}
+            <div
+              className={`bg-black text-white w-12 h-10 flex items-center justify-center ${myFont.className}`}
+            >
+              {item.posicionEnManga}
             </div>
 
             {/* Texto central */}
-            <div className="bg-black text-white w-40 h-10 flex items-center justify-start px-2 overflow-hidden whitespace-nowrap">
+            <div
+              className={`bg-black text-white w-40 h-10 flex items-center justify-start px-2 overflow-hidden whitespace-nowrap ${montserrat.className}`}
+            >
               <span className="truncate px-2 font-medium">
                 {item.equipo.charAt(0)}
               </span>
-              <span className="truncate font-black">
-                {item.equipo.split(" ")[1]}
+              <span className="truncate font-bold">
+                {item.equipo.split(" ").slice(1).join(" ")}
               </span>
             </div>
 
             {/* Caja roja con score */}
-            <div className="bg-red-600 text-white w-12 h-7 flex items-center justify-center px-2 overflow-hidden whitespace-nowrap rounded-l-md">
-              <span className="truncate">{item.numero}</span>
+            <div
+              style={{ backgroundColor: item.color }}
+              className={`text-white w-12 h-7 flex items-center justify-center px-2 overflow-hidden whitespace-nowrap rounded-l-md ${audiowide.className}`}
+            >
+              <span className="truncate text-xl">{item.numero}</span>
             </div>
           </motion.div>
         ))}

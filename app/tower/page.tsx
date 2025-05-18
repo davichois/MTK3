@@ -49,7 +49,7 @@ export default function TowerPosition() {
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.4 }}
             layout
-            className="flex items-center text-white font-bold bg-black overflow-hidden shadow"
+            className="flex items-center text-white font-bold bg-black overflow-hidden shadow py-1"
           >
             {/* Caja blanca con número */}
             <div
